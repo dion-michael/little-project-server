@@ -5,16 +5,18 @@ const { handleError } = require('./helpers/errorHandler');
 const app = express();
 const cors = require('cors');
 const port = 3002;
+const { DB_PATH } = process.env;
 
 mongoose.connect(
-    process.env.DB_PATH,
+    DB_PATH,
     {
         useNewUrlParser: true,
         useUnifiedTopology: true,
+        useFindAndModify: false,
     },
     (err) => {
         if (err) {
-            console.log(err);
+            throw err;
         } else {
             console.log('connection successful');
         }

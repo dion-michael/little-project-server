@@ -1,19 +1,27 @@
 function handleError(err, req, res, next) {
     console.log(JSON.stringify(err, null, 2), 'from error handler');
-    let { statusCode, message } = err;
-    if (!statusCode) statusCode = 500;
+    let { code, message } = err;
+    let errors = err;
+    let status = 'error';
+    if (!code) code = 500;
+    if (err.name === 'ValidationError') {
+        code = 400;
+        errors = err.errors;
+        status = err.name;
+    }
     if (!message) message = 'internal server error';
-    res.status(statusCode).json({
-        status: 'error',
-        statusCode,
+    res.status(code).json({
+        status,
+        code,
         message,
+        errors,
     });
 }
 
 class ErrorHandler extends Error {
-    constructor(statusCode, message) {
+    constructor(code, message) {
         super();
-        this.statusCode = statusCode;
+        this.code = code;
         this.message = message;
     }
 }
