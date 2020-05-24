@@ -1,0 +1,30 @@
+{
+    "user": {
+        "username": "admin",
+        "display_name": "Admin",
+        "password": "admin",
+        "email": "admin@bpjsketenagakerjaan.go.id",
+        "is_active": true
+    },
+    "permissions": [
+        "manage_users",
+        "manage_roles",
+        "manage_permissions",
+        "manage_menus"
+    ],
+    "role": { "role_name": "superuser" },
+    "menus": [
+        {
+            "path": "/pelayanan",
+            "component": "Pelayanan",
+            "text": "Pelayanan",
+            "icon": "BulbTwoTone"
+        },
+        {
+            "path": "/keuangan",
+            "component": "Keuangan",
+            "text": "Keuangan",
+            "icon": "DollarCircleTwoTone"
+        }
+    ]
+}
