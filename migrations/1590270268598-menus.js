@@ -2,8 +2,9 @@
  * Make any changes you need to make to the database here
  */
 const mongoose = require('mongoose');
+const { DB_PATH, DB_NAME } = process.env;
 
-mongoose.connect(process.env.DB_PATH);
+mongoose.connect(`mongodb://${DB_PATH}/${DB_NAME}`);
 
 const Menu = require('../models/menus');
 

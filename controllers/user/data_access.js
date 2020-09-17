@@ -103,6 +103,7 @@ class UserDAO {
             const menus = await UserMenu.find({
                 user_id: id,
             }).populate('menu_id', 'path component text icon');
+            console.log(menus);
             const response = menus.map((menu) => ({
                 path: menu.menu_id.path,
                 component: menu.menu_id.component,
@@ -151,9 +152,7 @@ class UserDAO {
             };
             return {
                 role: roleName,
-                role_permissions: rolePermissions,
-                user_permissions,
-                computed_permissions,
+                permissions: computed_permissions,
             };
         } catch (error) {
             throw error;
@@ -213,6 +212,7 @@ class UserDAO {
                 { user_id },
                 { role_id },
             );
+            const userole = await UserRoles.find({ user_id });
             return userRole;
         } catch (error) {
             throw error;
@@ -226,18 +226,23 @@ class UserDAO {
             const role = await Role.findOne({ role_name });
             if (user && role) {
                 customLogger('user and role valid');
-                const userRole = UserRoles.findOne({ user_id });
+                const userRole = await UserRoles.findOne({ user_id });
                 if (userRole) {
                     customLogger('user already have role, update the role');
                     const updated = await UserDAO.updateUserRole(
                         user_id,
-                        role._id,
+                        role.id,
                     );
+                    console.log('user_id : ', typeof user_id);
+                    console.log('user._id: ', typeof user.id);
+                    console.log('role._id: ', typeof role.id);
+                    console.log('role_id : ', typeof role.id);
                     customLogger('success update role');
                     return updated;
                 } else {
                     customLogger('user does not have role yet, add a role');
                     const saved = await UserDAO.addUserRole(user_id, role._id);
+                    console.log(saved);
                     customLogger('success adding role');
                     return saved;
                 }

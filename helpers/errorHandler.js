@@ -1,5 +1,6 @@
 function handleError(err, req, res, next) {
-    console.log(JSON.stringify(err, null, 2), 'from error handler');
+    console.log(err);
+    console.error(JSON.stringify(err, null, 2), 'from error handler');
     let { code, message } = err;
     let errors = err;
     let status = 'error';

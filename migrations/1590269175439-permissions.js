@@ -2,7 +2,9 @@
  * Make any changes you need to make to the database here
  */
 const mongoose = require('mongoose');
-mongoose.connect(process.env.DB_PATH);
+const { DB_PATH, DB_NAME } = process.env;
+
+mongoose.connect(`mongodb://${DB_PATH}/${DB_NAME}`);
 
 const Permission = require('../models/permissions');
 const values = require('./migration_values.json');

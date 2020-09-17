@@ -1,4 +1,4 @@
 {
-    "dbConnectionUri": "mongodb://localhost:27017/test",
+    "dbConnectionUri": "mongodb://localhost:27018/bpjstk-user",
     "migrationsDir": "migrations"
 }

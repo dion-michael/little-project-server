@@ -14,10 +14,10 @@ function Authenticate(req, res, next) {
 
 function Authorize(permission) {
     return async (req, res, next) => {
-        const { computed_permissions } = await UserDAO.getComputedPermissions(
+        const { permissions } = await UserDAO.getComputedPermissions(
             req.loggedUser.id,
         );
-        if (computed_permissions[permission]) {
+        if (permissions[permission]) {
             next();
         } else {
             next(new ErrorHandler(401, 'unauthorized'));
